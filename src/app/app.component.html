@@ -1,0 +1,48 @@
+<div class="container-fluid">
+<div [hidden]="user">
+  <h1>Sign In with Your Phone Number</h1>
+
+  <label for="phone">Phone Number: </label><br>
+  <input type="text" [(ngModel)]="phoneNumber.phn_number"  class="input" placeholder="e.g +8801755556666"    maxlength="15"><br><br>
+
+  <button (click)="sendLoginCode()">SMS Text Login Code</button><br><br>
+
+  <div id="recaptcha-container"></div><br><br>
+
+  <div *ngIf="windowRef.confirmationResult">
+    <hr>
+    <label for="code">Enter your Verification Code Here</label><br><br>
+    <input type="text" name="code" [(ngModel)]="verificationCode"><br><br>
+
+    <button (click)="verifyLoginCode()">Verify</button><br><br>
+  </div>
+
+</div>
+
+<div *ngIf="user">
+  <h2>You have successfully logged in with your phone number!</h2><br><br>
+
+  <h4>It's your UserId: {{ user?.uid }}</h4><br><br><br>
+
+ 	<label for="qrrr_code">Enter a string for generating QR Code.</label><br><br>
+	<input type="text" name="qrrr_code" [(ngModel)]="ngxQrcode2"><br><br>
+	<ngx-qrcode qrc-element-type="text" [qrc-value]="ngxQrcode2" ></ngx-qrcode><br><br><br>
+
+	<label>Upload a QR Code image file.</label><br><br>
+	<input type="file" accept="image/*" (change)="onFileChange($event)"><br><br>
+	<div *ngIf="ansofqr">
+  	<h3>Succesfully decoded !</h3><br>
+    
+  	<label>Decoded String : {{ ansofqr }}</label>
+  	
+
+  </div>
+
+</div>
+</div>
+
+
+
+
+
+<router-outlet></router-outlet>
